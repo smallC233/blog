@@ -1,5 +1,8 @@
 ---
 title: gcd
+categories:
+  - 竞赛相关
+  - 数论
 ---
 # GCD
 

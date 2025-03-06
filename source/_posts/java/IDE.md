@@ -1,5 +1,8 @@
 ---
 title: IDE
+categories:
+  - 编程语言
+  - Java
 ---
 # IDE
 

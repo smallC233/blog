@@ -1,5 +1,8 @@
 ---
 title: useful
+categories:
+  - 编程语言
+  - Java
 ---
 # useful
 

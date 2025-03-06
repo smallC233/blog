@@ -1,5 +1,8 @@
 ---
 title: gcd & lcm
+categories:
+  - 竞赛相关
+  - 数论
 ---
 # GCD 和 LCM
 

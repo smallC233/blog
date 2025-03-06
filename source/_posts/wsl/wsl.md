@@ -1,5 +1,8 @@
 ---
 title: wsl
+categories:
+  - 计算机基础知识
+  - wsl 相关
 ---
 # wsl
 

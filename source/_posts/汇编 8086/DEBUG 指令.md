@@ -1,5 +1,8 @@
 ---
 title: DEBUG 指令
+categories:
+  - 编程语言
+  - 汇编 8086
 ---
 # DEBUG 指令
 
