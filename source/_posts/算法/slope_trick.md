@@ -67,8 +67,10 @@ $$
 
 它是 $O(n^3)$ 的，我们令 $pre\_min[i][j] = MIN_{jj \leq j}{dp[i - 1][jj]}$ ，则:
 $$
+\begin{aligned}
 dp[i][j] = pre\_min[i - 1][j] + |j - a[i]| \\
 pre\_min[i][j] = min(pre\_min[i][j - 1],\ dp[i][j])
+\end{aligned}
 $$
 离散化一下就是一个 $O(n^2)$ 的 dp 式子了，但显然对于此题时间复杂度依旧太高。
 
