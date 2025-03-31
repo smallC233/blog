@@ -44,7 +44,23 @@ ele.input('您的账号')
 page.ele('#user_password').input('您的密码')
 # 点击登录按钮，'@' 表示按属性名查找。
 page.ele('@value=登 录').click()
+
+'.' 表示按类名查找。
 ```
+
+
+
+#### 相对查找
+
+```python
+ele = page.ele('#user_login')
+ele.parent() # 获取父级元素
+ele.child() # 获取直接子节点
+ele.next() # 获取后面的同级节点
+ele.prev() # 获取前面的同级节点
+```
+
+
 
 
 
