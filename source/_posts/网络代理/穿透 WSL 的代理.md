@@ -1,5 +1,5 @@
 ---
-title: 通过热点的代理
+title: # 穿透 WSL 的代理
 categories:
   - 计算机基础知识
   - 代理
@@ -24,16 +24,16 @@ HTTP_PROXY=http://172.25.80.1:10809
 http_proxy=http://172.25.80.1:10809
 ```
 
-`http_proxy` 正确的值应为：<Windows 主机的 WSL 网关地址>:<vpn 监听的 http 端口>
+`http_proxy` 正确的值应为：\<Windows 主机的 WSL 网关地址\>:\<vpn 监听的 http 端口\>
 
-<Windows 主机的 WSL 网关地址> 不可填写回环地址 `127.0.0.1`，可用下面的命令查询应该填写的 Windows 主机的 WSL 网关地址：
+\<Windows 主机的 WSL 网关地址\> 不可填写回环地址 `127.0.0.1`，可用下面的命令查询应该填写的 Windows 主机的 WSL 网关地址：
 
 ```shell
 $ cat /etc/resolv.conf | grep nameserver
 nameserver 172.55.233.6
 ```
 
-<vpn 监听的 http 端口> 可在自己的 vpn 中打开/查询，以 `v2ray` 为例：
+\<vpn 监听的 http 端口\> 可在自己的 vpn 中打开/查询，以 `v2ray` 为例：
 
 设置→参数设置→本地socks监听端口  $\underline{\qquad 10808\qquad}$  http端口=socks端口+1
 
