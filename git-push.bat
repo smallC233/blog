@@ -1,4 +1,4 @@
 git add -A
-git commit -m "æ›´æ–°æ–‡ç« "
+git commit -m "¸üĞÂÎÄÕÂ"
 git push origin main
 pause
