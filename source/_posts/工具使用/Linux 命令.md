@@ -227,6 +227,14 @@ wsl --shutdown
 
 
 
+关闭指定虚拟机
+
+```shell
+wsl -t ubuntu
+```
+
+
+
 启动代理
 
 ```shell

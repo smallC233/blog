@@ -1,5 +1,5 @@
 ---
-title: # 穿透 WSL 的代理
+title: 穿透 WSL 的代理
 categories:
   - 计算机基础知识
   - 代理
