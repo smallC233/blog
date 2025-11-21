@@ -97,10 +97,11 @@ source ~/.bashrc
 
 ## 安装 vpn-kit
 
-打开该网页：[GitHub - sakai135/wsl-vpnkit: Provides network connectivity to WSL 2 when blocked by VPN](https://github.com/sakai135/wsl-vpnkit?tab=readme-ov-file) ，上面有安装的详细教程，简单来说第一种方式就是：从[这里](https://github.com/sakai135/wsl-vpnkit/releases/tag/v0.4.1)下载 `wsl-vpnkit.tar.gz`，下载好后打开 powershell，输入：
+打开该网页：[GitHub - sakai135/wsl-vpnkit: Provides network connectivity to WSL 2 when blocked by VPN](https://github.com/sakai135/wsl-vpnkit?tab=readme-ov-file) ，上面有安装的详细教程，简单来说第一种方式就是：从[这里](https://github.com/sakai135/wsl-vpnkit/releases/tag/v0.4.1)下载 `wsl-vpnkit.tar.gz`，丢到 `C:\Users\<你的用户名>`（你可以换成其它目录，但注意路径不要有空格），打开 powershell，输入：
 
 ```shell
-wsl --import wsl-vpnkit --version 2 $env:USERPROFILE\wsl-vpnkit wsl-vpnkit.tar.gz # $env:USERPROFILE 就是 C:\Users\<你的用户名>，你可以换成其它目录，但注意路径不要有空格，实在不行就把 wsl-vpnkit.tar.gz 丢到 C:\Users\<你的用户名> 里去，然后着一模一样的输入
+wsl --import wsl-vpnkit --version 2 $env:USERPROFILE\wsl-vpnkit wsl-vpnkit.tar.gz 
+# $env:USERPROFILE 就是 C:\Users\<你的用户名>
 ```
 
 
@@ -117,7 +118,7 @@ wsl.exe -d wsl-vpnkit --cd /app wsl-vpnkit
 
 
 
-不过这样每次启动都要自己手动运行一下，网页给出的第二种安装方法好像是自动的，但是我看不懂（
+不过这样每次启动都要自己手动运行一下，github 页面给出的第二种安装方法好像是自动的，但是我看不懂（
 
 
 
