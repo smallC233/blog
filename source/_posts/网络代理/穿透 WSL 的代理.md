@@ -50,6 +50,23 @@ export HTTP_PROXY="http://172.55.233.6:10809"
 export HTTPS_PROXY="http://172.55.233.6:10809"
 ```
 
+**⚠️ 注意：**在设置了代理环境变量后，**必须确保 vpn-kit 处于运行状态**。
+
+否则，WSL 的所有网络请求（包括国内网站）都会被强制转发到代理端口。如果此时 vpn-kit 未启动，意味着转发链路中断，会导致 WSL **完全无法上网**。
+
+
+
+如果你不想让 WSL 过代理了，那就
+
+```bash
+unset http_proxy
+unset https_proxy
+unset HTTP_PROXY
+unset HTTPS_PROXY
+```
+
+可以写两个 bash 来快速打开关闭。
+
 
 
 或者修改 `~/.bashrc` 永久设置：
