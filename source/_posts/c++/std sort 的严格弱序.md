@@ -9,7 +9,7 @@ categories:
 
 当 std::sort 的 compare 函数不满足严格弱序约束时，sort 的运行就会发生不可预估的事情甚至 RE，因此，我们有必要了解 sort 的这一特性。
 
-## 简单理解严格弱序
+## 简单理解
 
 **严格（strict）**意思是：
 
@@ -22,7 +22,7 @@ categories:
   - `a < b` 为 false
   - `b < a` 也为 false
   - 此时就把 `a` 和 `b` 当作**等价的一类**
-- 等价关系成立不是 `==`，而是 `!cmp(a,b) && !cmp(b,a)`
+- 等价关系成立不是 `==`，而是 `!comp(a,b) && !comp(b,a)`
 
 ## 具体说明
 
@@ -30,23 +30,25 @@ categories:
 
 ### 1. 不自反（Irreflexive）
 
-不能有 `cmp(a, a) == true`
+不能有 `comp(a, a) == true`
 
 也就是：任何元素都**不应该比自己更靠前**。
 
-**这条一旦破坏**，`std::sort` 的内部逻辑会被你“骗”到，**很多实现会直接炸，导致 RE**。
+这条一旦破坏，`std::sort` 的内部逻辑会被你“骗”到，**很多实现会直接炸，导致 RE**。
 
 ### 2. 反对称（Asymmetric）
 
-如果 `cmp(a, b) == true`，那么**不能**同时有 `cmp(b, a) == true`
+如果 `comp(a, b) == true`，那么必须有 `comp(b, a) == false`
 
 * 你不能说 “a 在 b 前” 的前提下 “b 又在 a 前”。
 
-但是我们可以存在 `cmp(a, b) == false && cmp(b, a) == false`，详见 [4.](# 4. “等价类”的传递性（Strict Weak 的 "Weak"）)
+但是我们可以存在 `comp(a, b) == false && comp(b, a) == false`
+
+* 此时我们认为 `a, b` 是**等价类**
 
 ### 3. 传递性（Transitive）
 
-如果 `cmp(a, b)` 且 `cmp(b, c)` 都为真，那么 `cmp(a, c)` 必须为真
+如果 `comp(a, b)` 且 `comp(b, c)` 都为真，那么 `comp(a, c)` 必须为真
 
 否则会出现循环：a < b < c < a，排序算法会陷入矛盾。
 
@@ -54,7 +56,7 @@ categories:
 
 定义一个“等价”关系：
 
-* `eq(a,b) := !cmp(a,b) && !cmp(b,a)`
+* `eq(a,b) := !comp(a,b) && !comp(b,a)`
 * 意思是：既不认为 a<b，也不认为 b<a，那就当它们“等价”（同一组）
 * 同时这也说明，如果我们想要表示两个元素是等价时，只需要让它们相互的比较结果都为 false 即可
 
@@ -68,9 +70,9 @@ categories:
 
 ## 例子
 
-### 危险的 <= / >=
+### 危险的 <=
 
-在重载类中出现 `<=` 在大部分情况都是**危险**的，因为它很可能**破坏不自反性**，例如新手可能会写出这样的 cmp 函数，其中的 `<=` 就能轻松让 sort 函数发生 RE 。 
+在重载类中出现 `<=` 在大部分情况都是危险的，因为它很可能破坏不自反性，例如新手可能会写出这样的 cmp 函数，其中的 `<=` 就能轻松让 sort 函数发生 RE 。 
 
 ```cpp
 mt19937 rnd((unsigned int)chrono::steady_clock::now().time_since_epoch().count());
@@ -97,11 +99,11 @@ void solve() {
 }
 ```
 
-所以，记得尽量在 sort 函数里使用 `<` 和 `>` 而非 `<=` 和 `>=` 吧。
+所以，记得尽量在 sort 函数里使用 `<` 而非 `<=` 吧。
 
 
 
-### 乘 0 / 除 0 的情况
+### 乘 0 && 除 0
 
 对于这样一个结构体
 
@@ -111,7 +113,7 @@ struct Node {
 };
 ```
 
-假设比较的逻辑是 $\frac{a_i}{b_i} < \frac{a_j}{b_j}$，为了避免计算时的浮点问题，我们通常会写成 $a_i * b_j < a_j * b_i$：
+比较的逻辑是 $\frac{a_i}{b_i} < \frac{a_j}{b_j}$，为了避免计算时的浮点问题，我们通常写成 $a_i * b_j < a_j * b_i$：
 
 ```cpp
 bool operator<(const Node &a, const Node &b) {
@@ -157,7 +159,7 @@ void solve() {
 
 ![1](D:\Program Files (x86)\hexo\blog\source\assets\c++\pictrue\1.png)
 
-一种正确的写法是把 `(0, 0)` 归为特殊的一类，定义它比任何数都小/大（看实际需求）：
+一种正确的写法为：
 
 ```cpp
 // AC
@@ -169,12 +171,12 @@ struct Node {
     friend bool operator<(const Node& a, const Node& b);
 };
 
-int cls(const Node& t) {
+static int cls(const Node& t) {
     if (t.x == 0 && t.y == 0) return 0;  // (0,0)
     return 1;                            // normal
 }
 
-bool cmp(const Node& a, const Node& b) {
+static bool cmp(const Node& a, const Node& b) {
     int ca = cls(a), cb = cls(b);
     if (ca != cb) return ca < cb;
     if (ca == 0 && cb == 0) {
@@ -191,60 +193,6 @@ bool operator<(const Node& a, const Node& b) {
 此外，假如数据保证没有 {0, 0} 出现，那原本的判断程序就够满足严格弱序，但要注意：
 
 * {0,  $y_1$} 和 {0, $y_2$}; {$x_1$, 0} 和 {$x_2$, 0} 在此判断程序下会被认为是等价的，但实际是否真等价需要注意，如果实际不等价而是有大小关系，则需要额外写特判。
-
-
-
-### 莫队
-
-莫队算是踩到 sort cmp 函数雷点的高发区了。 
-
-如果你没学过什么是莫队，不要紧，对于本文你只需知道我们有一个这样的结构体表示数轴上的区间：
-
-```
-struct Node {
-    int l, r;
-};
-```
-
-我们把数轴分成一段段连续的区间，每个 `l` 有一个自己所在的区间，用 `block[l]` 表示。
-
-我们按照以下规则排序，称之为写法一：
-
-* 先按照 `block[l]` 升序排序
-* `block[l]` 相同则按照 `r` 升序排序
-
-还有另一种不同写法，称之为写法二：
-
-* 先按照 `block[l]` 升序排序
-* `block[l]` 相同，如果 `block[l]` 是奇数则按照 `r` 升序，是偶数则按照 `r` 降序排序
-
-两种写法挑一个实现。
-
-接下来让我们看看各种各样 RE 的死法。
-
-#### 死法一
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
