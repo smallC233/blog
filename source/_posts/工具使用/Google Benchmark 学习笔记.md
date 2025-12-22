@@ -1,6 +1,9 @@
 ---
-Google Benchmark 学习笔记
+title: Google Benchmark 学习笔记
+categories:
+  - 工具使用
 ---
+
 # Google Benchmark 学习笔记
 
 ## 函数格式

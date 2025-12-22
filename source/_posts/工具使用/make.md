@@ -1,3 +1,9 @@
+---
+title: make
+categories:
+  - 工具使用
+---
+
 # make
 
 当我们需要编译一个文件的时候可以直接

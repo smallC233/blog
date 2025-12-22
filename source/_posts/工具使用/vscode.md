@@ -1,5 +1,7 @@
 ---
 title: vscode
+categories:
+  - 工具使用
 ---
 ### F5 不能自动识别运行什么文件：
 
