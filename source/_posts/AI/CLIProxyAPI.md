@@ -38,6 +38,19 @@ cd ~/cliproxyapi && ./cli-proxy-api
 
 
 
+## Web UI
+
+参考：[Web UI | CLIProxyAPI](https://help.router-for.me/cn/management/webui)
+
+访问的是：http://localhost:8317/management.html
+
+管理密钥得先在 `~/.cli-proxy-api/config.yaml` 中配置
+
+```
+remote-management:
+  secret-key: "balabala114514"
+```
+
 
 
 
