@@ -155,7 +155,7 @@ void solve() {
 
 ```
 
-![1](D:\Program Files (x86)\hexo\blog\source\assets\c++\pictrue\1.png)
+![1](sort 的严格弱序/1.png)
 
 一种正确的写法是把 `(0, 0)` 归为特殊的一类，定义它比任何数都小/大（看实际需求）：
 

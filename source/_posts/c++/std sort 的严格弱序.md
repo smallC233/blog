@@ -157,7 +157,7 @@ void solve() {
 
 ```
 
-![1](D:\Program Files (x86)\hexo\blog\source\assets\c++\pictrue\1.png)
+![1](std sort 的严格弱序/1.png)
 
 一种正确的写法为：
 
